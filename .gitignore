@@ -38,6 +38,7 @@ Desktop.ini
 # Gemini / AI関連
 # ==========================
 .gemini/
+.antigravity-images/
 
 # ==========================
 # データ（大規模CSVは除外可）
