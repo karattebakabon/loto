@@ -31,3 +31,8 @@ LOTTERY_CONFIG: dict[str, dict] = {
 
 # デフォルトのゲーム設定
 DEFAULT_GAME = "LOTO6"
+
+# サブモジュールの遅延インポート用ヘルパー
+# 循環インポート防止のため、直接インポートはしない
+# 使用時: from src.common.data_loader import load_lottery_data
+# 使用時: from src.common.weights import calculate_frequency_weights
