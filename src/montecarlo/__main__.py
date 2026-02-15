@@ -11,8 +11,14 @@
     # ロト7、試行50万回、直近100回分のデータ
     python -m src.montecarlo --game loto7 --trials 500000 --recent 100
 
-    # ミニロト、トップ5表示
-    python -m src.montecarlo --game miniloto --top 5
+    # 結果をCSV/JSONに保存
+    python -m src.montecarlo --output csv json
+
+    # インタラクティブなHTMLグラフを生成
+    python -m src.montecarlo --visualize
+
+    # 全部入り
+    python -m src.montecarlo --game loto7 --trials 200000 --output csv json --visualize
 """
 
 import argparse
@@ -24,6 +30,8 @@ from src.common.data_loader import load_lottery_data
 from src.common.weights import calculate_frequency_weights
 from src.montecarlo.simulator import MonteCarloSimulator
 from src.montecarlo.analyzer import print_report
+from src.montecarlo.exporter import export_csv, export_json
+from src.montecarlo.visualizer import generate_report_html
 
 
 def _parse_args() -> argparse.Namespace:
@@ -63,6 +71,24 @@ def _parse_args() -> argparse.Namespace:
         default=0.3,
         help="ボーナス数字の重み係数（デフォルト: 0.3）",
     )
+    parser.add_argument(
+        "--output",
+        nargs="+",
+        choices=["csv", "json"],
+        default=None,
+        help="結果をファイルに出力（csv / json を指定、複数可）",
+    )
+    parser.add_argument(
+        "--visualize",
+        action="store_true",
+        help="plotly でインタラクティブHTMLグラフを生成",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="output",
+        help="出力ディレクトリ（デフォルト: output/）",
+    )
     return parser.parse_args()
 
 
@@ -92,7 +118,6 @@ def main() -> None:
         sys.exit(1)
 
     total_draws = len(data)
-    target_draws = args.recent if args.recent else total_draws
     print(f"   {total_draws:,}回分のデータを読み込みました")
     if args.recent:
         print(f"   直近{args.recent}回分を使用します")
@@ -124,6 +149,45 @@ def main() -> None:
     # 4. 結果の表示
     print_report(results, config, top_n=args.top)
 
+    # 5. ファイル出力（オプション）
+    if args.output:
+        print(f"\n💾 結果をファイルに出力中...")
+        for fmt in args.output:
+            if fmt == "csv":
+                path = export_csv(
+                    results,
+                    config,
+                    game_key,
+                    args.trials,
+                    output_dir=args.output_dir,
+                )
+                print(f"   ✅ CSV: {path}")
+            elif fmt == "json":
+                path = export_json(
+                    results,
+                    config,
+                    game_key,
+                    args.trials,
+                    output_dir=args.output_dir,
+                )
+                print(f"   ✅ JSON: {path}")
+
+    # 6. 可視化（オプション）
+    if args.visualize:
+        print(f"\n📊 インタラクティブHTMLレポートを生成中...")
+        html_path = generate_report_html(
+            results,
+            config,
+            game_key,
+            args.trials,
+            output_dir=args.output_dir,
+            top_n=min(args.top, 30),  # グラフは最大30件
+        )
+        print(f"   ✅ HTML: {html_path}")
+        print(f"   ブラウザで開いてください: file:///{os.path.abspath(html_path).replace(os.sep, '/')}")
+
 
 if __name__ == "__main__":
+    import os
+
     main()
