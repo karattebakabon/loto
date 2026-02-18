@@ -1,15 +1,15 @@
 # ロト予測ツール 依存パッケージ
-# 各アルゴリズム実装時に追加予定
 #
 # --- 基本 ---
+numpy
 # pandas
 # matplotlib
 #
 # --- クラスタリング ---
-# scikit-learn
+scikit-learn
 #
 # --- 遺伝的アルゴリズム ---
 # deap
 #
 # --- 可視化 ---
-# plotly
+plotly
