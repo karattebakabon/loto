@@ -16,9 +16,13 @@
 
     # 直近200回、重心狙い
     python -m src.clustering --recent 200 --strategy centroid
+
+    # インタラクティブHTMLグラフを生成
+    python -m src.clustering --visualize
 """
 
 import argparse
+import os
 import sys
 import time
 
@@ -28,6 +32,7 @@ from src.clustering.feature_extractor import extract_features
 from src.clustering.engine import run_kmeans, run_dbscan, find_optimal_k
 from src.clustering.predictor import generate_predictions
 from src.clustering.analyzer import print_cluster_report, print_prediction_report
+from src.clustering.visualizer import generate_cluster_report_html
 
 
 def _parse_args() -> argparse.Namespace:
@@ -74,6 +79,17 @@ def _parse_args() -> argparse.Namespace:
         default="centroid",
         choices=["centroid", "recent", "pocket"],
         help="予測戦略（デフォルト: centroid）",
+    )
+    parser.add_argument(
+        "--visualize",
+        action="store_true",
+        help="plotly でインタラクティブHTMLグラフを生成",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=str,
+        default="output",
+        help="出力ディレクトリ（デフォルト: output/）",
     )
     return parser.parse_args()
 
@@ -158,6 +174,25 @@ def main() -> None:
         )
 
         print_prediction_report(predictions, config, args.strategy)
+
+    # 5. 可視化（オプション）
+    if args.visualize and results_list:
+        print(f"\n📊 インタラクティブHTMLレポートを生成中...")
+        for vis_result in results_list:
+            html_path = generate_cluster_report_html(
+                result=vis_result,
+                features=features,
+                data=data,
+                config=config,
+                game_key=game_key,
+                predictions=predictions if results_list[0] is vis_result else None,
+                strategy=args.strategy,
+                output_dir=args.output_dir,
+            )
+            method_label = "K-Means" if vis_result.method == "kmeans" else "DBSCAN"
+            print(f"   ✅ {method_label}: {html_path}")
+            abs_path = os.path.abspath(html_path).replace(os.sep, "/")
+            print(f"   ブラウザで開いてください: file:///{abs_path}")
 
     print(f"\n✅ 分析完了！")
 
