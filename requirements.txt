@@ -9,7 +9,7 @@ numpy
 scikit-learn
 #
 # --- 遺伝的アルゴリズム ---
-# deap
+# 外部ライブラリ不使用（標準ライブラリ + numpy で自作実装）
 #
 # --- 可視化 ---
 plotly
