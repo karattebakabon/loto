@@ -39,6 +39,8 @@ Desktop.ini
 # ==========================
 .gemini/
 .antigravity-images/
+.claude/
+.cascade-settings.json
 
 # ==========================
 # データ（大規模CSVは除外可）
