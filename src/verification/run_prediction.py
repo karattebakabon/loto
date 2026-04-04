@@ -41,6 +41,8 @@ MC_TOP_N = 10
 CLUSTER_PREDICTIONS = 5
 # クラスタリング: 予測戦略
 CLUSTER_STRATEGY = "centroid"
+# クラスタリング: スライディングウィンドウ（直近N回のみ使用、案2）
+CLUSTER_WINDOW = 200
 
 # GA: 世代数
 GA_GENERATIONS = 500
@@ -99,16 +101,21 @@ def run_clustering(
     print(f"   🔬 クラスタリング ({game_key})... ", end="", flush=True)
     t0 = time.time()
 
-    features = extract_features(data, game_key)
+    # 案2: スライディングウィンドウ（直近CLUSTER_WINDOW回のみ使用）
+    window = min(CLUSTER_WINDOW, len(data))
+    data_window = data[-window:]
 
-    # K-Means (エルボー法で自動推定)
+    features = extract_features(data_window, game_key)
+
+    # 案5: シルエットスコアで最適K選定
     elbow = find_optimal_k(features)
     n_clusters = elbow["optimal_k"]
+    best_silhouette = elbow.get("best_silhouette")
     km_result = run_kmeans(features, n_clusters=n_clusters)
 
     preds = clustering_predict(
         km_result,
-        data,
+        data_window,
         features,
         game_key,
         n_predictions=CLUSTER_PREDICTIONS,
@@ -118,13 +125,16 @@ def run_clustering(
     predictions = [{"numbers": sorted(p)} for p in preds]
 
     elapsed = time.time() - t0
-    print(f"完了 ({elapsed:.1f}秒, {len(predictions)}セット, K={n_clusters})")
+    sil_str = f", sil={best_silhouette:.3f}" if best_silhouette is not None else ""
+    print(f"完了 ({elapsed:.1f}秒, {len(predictions)}セット, K={n_clusters}{sil_str}, 直近{window}回)")
 
     return {
         "method": "clustering",
         "algorithm": "kmeans",
         "n_clusters": n_clusters,
         "strategy": CLUSTER_STRATEGY,
+        "window": window,
+        "best_silhouette": round(best_silhouette, 4) if best_silhouette is not None else None,
         "predictions": predictions,
         "elapsed_sec": round(elapsed, 2),
     }

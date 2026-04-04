@@ -1,0 +1,229 @@
+{
+  "game_key": "MINILOTO",
+  "game_name": "ミニロト",
+  "run_date": "2026-04-04",
+  "run_datetime": "2026-04-04T20:27:48",
+  "data_summary": {
+    "total_draws": 1380,
+    "latest_draw_no": 1380,
+    "latest_date": "2026-03-31"
+  },
+  "results": {
+    "montecarlo": {
+      "method": "montecarlo",
+      "trials": 100000,
+      "predictions": [
+        {
+          "numbers": [
+            10,
+            11,
+            17,
+            21,
+            29
+          ],
+          "score": 7.0
+        },
+        {
+          "numbers": [
+            1,
+            6,
+            7,
+            8,
+            11
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            8,
+            13,
+            16,
+            20,
+            29
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            3,
+            10,
+            18,
+            24,
+            26
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            2,
+            4,
+            11,
+            16,
+            31
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            11,
+            13,
+            14,
+            21,
+            28
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            3,
+            9,
+            16,
+            25,
+            30
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            2,
+            7,
+            11,
+            16,
+            22
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            12,
+            16,
+            17,
+            18,
+            31
+          ],
+          "score": 6.0
+        },
+        {
+          "numbers": [
+            2,
+            10,
+            16,
+            18,
+            29
+          ],
+          "score": 5.0
+        }
+      ],
+      "elapsed_sec": 1.0
+    },
+    "clustering": {
+      "method": "clustering",
+      "algorithm": "kmeans",
+      "n_clusters": 3,
+      "strategy": "centroid",
+      "window": 200,
+      "best_silhouette": 0.281,
+      "predictions": [
+        {
+          "numbers": [
+            3,
+            8,
+            18,
+            23,
+            27
+          ]
+        },
+        {
+          "numbers": [
+            4,
+            8,
+            10,
+            14,
+            27
+          ]
+        },
+        {
+          "numbers": [
+            2,
+            3,
+            16,
+            21,
+            25
+          ]
+        },
+        {
+          "numbers": [
+            1,
+            6,
+            11,
+            22,
+            30
+          ]
+        },
+        {
+          "numbers": [
+            6,
+            10,
+            20,
+            23,
+            24
+          ]
+        }
+      ],
+      "elapsed_sec": 0.23
+    },
+    "genetic": {
+      "method": "genetic",
+      "generations": 500,
+      "population": 200,
+      "predictions": [
+        {
+          "numbers": [
+            2,
+            11,
+            19,
+            22,
+            27
+          ]
+        },
+        {
+          "numbers": [
+            2,
+            11,
+            19,
+            22,
+            30
+          ]
+        },
+        {
+          "numbers": [
+            2,
+            11,
+            19,
+            22,
+            26
+          ]
+        },
+        {
+          "numbers": [
+            2,
+            11,
+            16,
+            19,
+            27
+          ]
+        },
+        {
+          "numbers": [
+            2,
+            6,
+            19,
+            22,
+            27
+          ]
+        }
+      ],
+      "elapsed_sec": 1.12
+    }
+  }
+}

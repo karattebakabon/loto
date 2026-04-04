@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 from sklearn.cluster import KMeans, DBSCAN
+from sklearn.metrics import silhouette_score
 from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import StandardScaler
 
@@ -190,7 +191,11 @@ def find_optimal_k(
     random_state: int = 42,
 ) -> dict:
     """
-    エルボー法でK-Meansの最適クラスタ数を推定する。
+    シルエットスコアでK-Meansの最適クラスタ数を推定する（案5）。
+
+    シルエットスコアはクラスタ内の凝集度とクラスタ間の分離度を
+    [-1, 1] の範囲で評価し、値が大きいほど良い分割を意味する。
+    エルボー法より頑健で、K依存のバイアスが少ない。
 
     Args:
         features: 特徴量行列
@@ -201,7 +206,9 @@ def find_optimal_k(
         {
             "k_values": [2, 3, ...],
             "inertias": [float, ...],
+            "silhouette_scores": [float, ...],
             "optimal_k": int,
+            "best_silhouette": float,
         }
     """
     if k_range is None:
@@ -214,22 +221,22 @@ def find_optimal_k(
 
     k_values = list(k_range)
     inertias = []
+    silhouette_scores = []
 
     for k in k_values:
         km = KMeans(n_clusters=k, random_state=random_state, n_init=10)
-        km.fit(features_scaled)
+        labels = km.fit_predict(features_scaled)
         inertias.append(km.inertia_)
+        silhouette_scores.append(float(silhouette_score(features_scaled, labels)))
 
-    # エルボー検出（二次差分の最大点）
-    optimal_k = k_values[0]
-    if len(inertias) >= 3:
-        diffs = [inertias[i] - inertias[i + 1] for i in range(len(inertias) - 1)]
-        second_diffs = [diffs[i] - diffs[i + 1] for i in range(len(diffs) - 1)]
-        elbow_idx = second_diffs.index(max(second_diffs)) + 1
-        optimal_k = k_values[elbow_idx]
+    # シルエットスコアが最大のKを採用
+    best_idx = silhouette_scores.index(max(silhouette_scores))
+    optimal_k = k_values[best_idx]
 
     return {
         "k_values": k_values,
         "inertias": inertias,
+        "silhouette_scores": silhouette_scores,
         "optimal_k": optimal_k,
+        "best_silhouette": silhouette_scores[best_idx],
     }
