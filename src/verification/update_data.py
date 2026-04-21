@@ -15,6 +15,7 @@ import csv
 import io
 import os
 import sys
+import time
 import urllib.request
 import urllib.error
 from datetime import datetime
@@ -57,15 +58,26 @@ def _download_csv(game_key: str) -> list[list[str]]:
     url = _DOWNLOAD_URLS[game_key]
     print(f"   ダウンロード中: {url}")
 
-    try:
-        req = urllib.request.Request(
-            url,
-            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"},
-        )
-        with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
-            raw = resp.read()
-    except urllib.error.URLError as e:
-        raise ConnectionError(f"ダウンロード失敗: {e}") from e
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+        "Referer": "https://loto-life.net/",
+    }
+    last_err: Exception | None = None
+    for attempt in range(3):
+        if attempt > 0:
+            time.sleep(5 * attempt)
+            print(f"   リトライ {attempt}/2...")
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
+                raw = resp.read()
+            break
+        except urllib.error.URLError as e:
+            last_err = e
+    else:
+        raise ConnectionError(f"ダウンロード失敗: {last_err}") from last_err
 
     # Shift-JIS でデコード
     text = raw.decode("shift_jis", errors="ignore")
