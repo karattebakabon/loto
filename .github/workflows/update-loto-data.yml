@@ -1,0 +1,37 @@
+name: Update Loto CSV Data
+
+on:
+  schedule:
+    # Claudeエージェント（UTC 22:00）の2時間前に実行
+    - cron: '0 20 * * 1'  # 月曜 20:00 UTC → 火曜 5:00 JST (ロト6月曜分前)
+    - cron: '0 20 * * 2'  # 火曜 20:00 UTC → 水曜 5:00 JST (ミニロト火曜分前)
+    - cron: '0 20 * * 4'  # 木曜 20:00 UTC → 金曜 5:00 JST (ロト6木曜分前)
+    - cron: '0 20 * * 5'  # 金曜 20:00 UTC → 土曜 5:00 JST (ロト7金曜分前)
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download lottery CSV data
+        run: PYTHONIOENCODING=utf-8 python3 -m src.verification.update_data
+
+      - name: Commit and push if changed
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add data/raw/
+          git diff --cached --quiet && echo "差分なし - スキップ" || \
+            git commit -m "auto: loto CSV更新 $(date '+%Y-%m-%d')" && git push

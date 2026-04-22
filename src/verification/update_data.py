@@ -251,6 +251,11 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help="CSVディレクトリ（省略時: data/raw/）",
     )
+    parser.add_argument(
+        "--skip-on-error",
+        action="store_true",
+        help="ダウンロード失敗時にスキップして続行（リモートエージェント用）",
+    )
     return parser.parse_args()
 
 
@@ -288,8 +293,11 @@ def main() -> None:
         status = f"+{r['added_count']}件" if r["added_count"] > 0 else "差分なし"
         print(f"   {r['game_key']:<10}: 第{r['latest_draw_no']}回 ({r['latest_date']}) [{status}]")
     if errors:
-        print(f"\n❌ 失敗: {', '.join(errors)}", file=sys.stderr)
-        sys.exit(1)
+        if args.skip_on_error:
+            print(f"\n⚠️  スキップ: {', '.join(errors)}（既存データで続行）", file=sys.stderr)
+        else:
+            print(f"\n❌ 失敗: {', '.join(errors)}", file=sys.stderr)
+            sys.exit(1)
 
 
 if __name__ == "__main__":
