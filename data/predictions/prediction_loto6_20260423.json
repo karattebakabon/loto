@@ -1,0 +1,249 @@
+{
+  "game_key": "LOTO6",
+  "game_name": "ロト6",
+  "run_date": "2026-04-23",
+  "run_datetime": "2026-04-23T22:11:32",
+  "data_summary": {
+    "total_draws": 2095,
+    "latest_draw_no": 2095,
+    "latest_date": "2026-04-20"
+  },
+  "results": {
+    "montecarlo": {
+      "method": "montecarlo",
+      "trials": 100000,
+      "predictions": [
+        {
+          "numbers": [
+            1,
+            4,
+            34,
+            35,
+            40,
+            43
+          ],
+          "score": 3.0
+        },
+        {
+          "numbers": [
+            5,
+            18,
+            21,
+            33,
+            39,
+            41
+          ],
+          "score": 3.0
+        },
+        {
+          "numbers": [
+            10,
+            16,
+            18,
+            20,
+            39,
+            41
+          ],
+          "score": 3.0
+        },
+        {
+          "numbers": [
+            11,
+            26,
+            31,
+            37,
+            38,
+            41
+          ],
+          "score": 3.0
+        },
+        {
+          "numbers": [
+            1,
+            7,
+            14,
+            21,
+            23,
+            37
+          ],
+          "score": 2.0
+        },
+        {
+          "numbers": [
+            1,
+            5,
+            22,
+            26,
+            37,
+            38
+          ],
+          "score": 2.0
+        },
+        {
+          "numbers": [
+            6,
+            11,
+            12,
+            30,
+            31,
+            35
+          ],
+          "score": 2.0
+        },
+        {
+          "numbers": [
+            2,
+            14,
+            15,
+            22,
+            36,
+            38
+          ],
+          "score": 2.0
+        },
+        {
+          "numbers": [
+            22,
+            24,
+            32,
+            36,
+            38,
+            42
+          ],
+          "score": 2.0
+        },
+        {
+          "numbers": [
+            10,
+            19,
+            30,
+            31,
+            40,
+            43
+          ],
+          "score": 2.0
+        }
+      ],
+      "elapsed_sec": 1.63
+    },
+    "clustering": {
+      "method": "clustering",
+      "algorithm": "kmeans",
+      "n_clusters": 3,
+      "strategy": "centroid",
+      "window": 200,
+      "best_silhouette": 0.259,
+      "predictions": [
+        {
+          "numbers": [
+            16,
+            18,
+            28,
+            30,
+            34,
+            43
+          ]
+        },
+        {
+          "numbers": [
+            13,
+            16,
+            19,
+            20,
+            33,
+            40
+          ]
+        },
+        {
+          "numbers": [
+            7,
+            18,
+            23,
+            25,
+            33,
+            41
+          ]
+        },
+        {
+          "numbers": [
+            10,
+            21,
+            22,
+            31,
+            41,
+            42
+          ]
+        },
+        {
+          "numbers": [
+            18,
+            22,
+            28,
+            32,
+            34,
+            37
+          ]
+        }
+      ],
+      "elapsed_sec": 0.31
+    },
+    "genetic": {
+      "method": "genetic",
+      "generations": 500,
+      "population": 200,
+      "predictions": [
+        {
+          "numbers": [
+            5,
+            16,
+            21,
+            26,
+            28,
+            37
+          ]
+        },
+        {
+          "numbers": [
+            5,
+            16,
+            21,
+            26,
+            28,
+            35
+          ]
+        },
+        {
+          "numbers": [
+            3,
+            16,
+            21,
+            26,
+            28,
+            37
+          ]
+        },
+        {
+          "numbers": [
+            5,
+            16,
+            21,
+            26,
+            28,
+            31
+          ]
+        },
+        {
+          "numbers": [
+            5,
+            11,
+            16,
+            26,
+            28,
+            37
+          ]
+        }
+      ],
+      "elapsed_sec": 1.12
+    }
+  }
+}
