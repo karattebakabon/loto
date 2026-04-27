@@ -1,12 +1,6 @@
 name: Update Loto CSV Data
 
 on:
-  schedule:
-    # Claudeエージェント（UTC 22:00）の2時間前に実行
-    - cron: '0 20 * * 1'  # 月曜 20:00 UTC → 火曜 5:00 JST (ロト6月曜分前)
-    - cron: '0 20 * * 2'  # 火曜 20:00 UTC → 水曜 5:00 JST (ミニロト火曜分前)
-    - cron: '0 20 * * 4'  # 木曜 20:00 UTC → 金曜 5:00 JST (ロト6木曜分前)
-    - cron: '0 20 * * 5'  # 金曜 20:00 UTC → 土曜 5:00 JST (ロト7金曜分前)
   workflow_dispatch:
 
 jobs:
