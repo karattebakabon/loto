@@ -1,0 +1,331 @@
+{
+  "prediction_file": "prediction_miniloto_20260427.json",
+  "game_key": "MINILOTO",
+  "game_name": "ミニロト",
+  "prediction_run_date": "2026-04-27",
+  "prediction_run_datetime": "2026-04-27T20:58:11",
+  "verified_at": "2026-05-02T22:09:49",
+  "winning": {
+    "draw_no": 1384,
+    "date": "2026-04-28",
+    "main": [
+      7,
+      12,
+      13,
+      17,
+      29
+    ],
+    "bonus": [
+      22
+    ]
+  },
+  "method_results": [
+    {
+      "method": "montecarlo",
+      "sets": 10,
+      "hit_count": 0,
+      "max_main_match": 2,
+      "best_grade": null,
+      "details": [
+        {
+          "set": 1,
+          "predicted": [
+            7,
+            13,
+            18,
+            22,
+            27
+          ],
+          "main_match": 2,
+          "bonus_match": 1,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 2,
+          "predicted": [
+            7,
+            10,
+            11,
+            12,
+            27
+          ],
+          "main_match": 2,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 3,
+          "predicted": [
+            3,
+            10,
+            11,
+            21,
+            24
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 4,
+          "predicted": [
+            1,
+            7,
+            9,
+            21,
+            25
+          ],
+          "main_match": 1,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 5,
+          "predicted": [
+            5,
+            21,
+            25,
+            27,
+            28
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 6,
+          "predicted": [
+            11,
+            24,
+            26,
+            27,
+            31
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 7,
+          "predicted": [
+            1,
+            12,
+            14,
+            15,
+            21
+          ],
+          "main_match": 1,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 8,
+          "predicted": [
+            11,
+            14,
+            16,
+            21,
+            28
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 9,
+          "predicted": [
+            3,
+            20,
+            25,
+            29,
+            30
+          ],
+          "main_match": 1,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 10,
+          "predicted": [
+            3,
+            11,
+            20,
+            27,
+            30
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        }
+      ]
+    },
+    {
+      "method": "clustering",
+      "sets": 5,
+      "hit_count": 0,
+      "max_main_match": 2,
+      "best_grade": null,
+      "details": [
+        {
+          "set": 1,
+          "predicted": [
+            1,
+            9,
+            10,
+            11,
+            20
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 2,
+          "predicted": [
+            9,
+            12,
+            21,
+            25,
+            29
+          ],
+          "main_match": 2,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 3,
+          "predicted": [
+            9,
+            12,
+            15,
+            17,
+            27
+          ],
+          "main_match": 2,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 4,
+          "predicted": [
+            3,
+            5,
+            9,
+            24,
+            31
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 5,
+          "predicted": [
+            7,
+            9,
+            17,
+            27,
+            31
+          ],
+          "main_match": 2,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        }
+      ]
+    },
+    {
+      "method": "genetic",
+      "sets": 5,
+      "hit_count": 0,
+      "max_main_match": 0,
+      "best_grade": null,
+      "details": [
+        {
+          "set": 1,
+          "predicted": [
+            11,
+            14,
+            16,
+            19,
+            21
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 2,
+          "predicted": [
+            5,
+            14,
+            16,
+            19,
+            21
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 3,
+          "predicted": [
+            6,
+            11,
+            16,
+            19,
+            21
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 4,
+          "predicted": [
+            11,
+            14,
+            16,
+            21,
+            28
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        },
+        {
+          "set": 5,
+          "predicted": [
+            11,
+            14,
+            16,
+            19,
+            31
+          ],
+          "main_match": 0,
+          "bonus_match": 0,
+          "grade": null,
+          "hit": false
+        }
+      ]
+    }
+  ]
+}
